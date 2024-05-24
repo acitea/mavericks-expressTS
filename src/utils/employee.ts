@@ -8,7 +8,7 @@ export function employeeIsSame(emp1 : Employee, emp2 : Employee) : Boolean {
         emp1.id == emp2.id &&
         emp1.name == emp2.name &&
         emp1.salary == emp2.salary &&
-        emp1.department == emp2.department
+        emp1.departmentId == emp2.departmentId
     )
 }
 

@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm"
+import { Department } from "./Department.entity"
 
 @Entity()
 export class Employee {
@@ -11,6 +12,6 @@ export class Employee {
     @Column()
     salary : number
 
-    @Column()
-    department : string
+    @ManyToOne(() => Department, (department : Department) => department.employee)
+    department : Department
 }

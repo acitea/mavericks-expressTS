@@ -10,6 +10,6 @@ export const db = new DataSource({
     // synchronize: true,
     logging: true,
     entities: [__dirname + '/../**/*.entity.{js,ts}'],
+    migrations: [__dirname + '/../src/migrations/**/*.{ts,js}'],
     subscribers: [],
-    migrations: [],
 })
