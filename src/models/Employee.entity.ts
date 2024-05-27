@@ -12,6 +12,6 @@ export class Employee {
     @Column()
     salary : number
 
-    @ManyToOne(() => Department, (department : Department) => department.employee)
+    @ManyToOne(() => Department, (department : Department) => department.employee, {eager: true})
     department : Department
 }

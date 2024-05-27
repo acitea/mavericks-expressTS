@@ -1,7 +1,8 @@
-import express, { Express, Router } from "express";
+import express from "express";
 import dotenv from "dotenv";
 import router from "./routes/employee";
-import { errorHandler } from "./utils/employee";
+import authentication from "./routes/authentication";
+import { errorHandler, authenticateToken } from "./utils/express";
 import "reflect-metadata"
 
 const cors = require('cors')
@@ -12,7 +13,8 @@ const port = process.env.PORT;
 
 app.use(express.json())
 app.use(cors({origin:'http://localhost:3000'}))
-
+app.use('/', authentication)
+app.use(authenticateToken)
 app.use('/', router)
 app.use(errorHandler)
 

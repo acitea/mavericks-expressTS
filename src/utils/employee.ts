@@ -1,7 +1,4 @@
-import { ZodError, z } from "zod";
 import { Employee } from "../models/employee";
-import { Request, Response, NextFunction } from "express";
-import EmployeeError from "../models/error";
 
 export function employeeIsSame(emp1 : Employee, emp2 : Employee) : Boolean {
     return (
@@ -12,10 +9,3 @@ export function employeeIsSame(emp1 : Employee, emp2 : Employee) : Boolean {
     )
 }
 
-export function errorHandler(err: Error, req: Request, res: Response, next: NextFunction) {
-    if (err instanceof ZodError) {
-        return res.status(400).json(err)
-    } else if (err instanceof Error) {
-        return res.status(404).json(err.message)
-    }
-}
