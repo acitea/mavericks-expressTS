@@ -5,7 +5,7 @@ import { Request, Response, NextFunction } from "express"
 import { employeeIsSame } from "../utils/employee"
 import { db } from "../dataSource"
 import { Department } from "../models/Department.entity"
-import bcrypt from 'bcryptjs'
+import { compare, hash } from 'bcryptjs'
 import { sign } from "jsonwebtoken"
 import { SECRET } from "../utils/express"
 
@@ -134,7 +134,7 @@ export async function signUp(req: Request, res: Response, next: NextFunction) {
         throw new Error('User already exists')
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10)
+    const hashedPassword = await hash(password, 10)
 
     const newUser = {} as DBUser
     newUser.username = username
@@ -154,7 +154,7 @@ export async function signIn(req: Request, res: Response, next: NextFunction) {
         username
     })
 
-    const isPasswordValid = await bcrypt.compare(password, user.password) // Correct comparison
+    const isPasswordValid = await compare(password, user.password) // Correct comparison
 
     if (!isPasswordValid) {
         return res.status(400).json({ message: 'Invalid username or password' })
