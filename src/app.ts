@@ -4,6 +4,7 @@ import router from "./routes/employee";
 import authentication from "./routes/authentication";
 import { errorHandler, authenticateToken } from "./utils/express";
 import "reflect-metadata"
+import { db } from "./dataSource";
 
 const cors = require('cors')
 dotenv.config();
@@ -18,6 +19,12 @@ app.use(authenticateToken)
 app.use('/', router)
 app.use(errorHandler)
 
-app.listen(port, () => {
-    console.log(`[server]: Server is running at http://localhost:${port}`);
-});
+if (process.env.NODE_ENV !== 'test') {
+    app.listen(port, async () => {
+        console.log(`[server]: Server is running at http://localhost:${port}`);
+        await db.initialize()
+    });
+}
+
+
+export default app

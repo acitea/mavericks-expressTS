@@ -9,8 +9,6 @@ import { compare, hash } from 'bcryptjs'
 import { sign } from "jsonwebtoken"
 import { SECRET } from "../utils/express"
 
-db.initialize()
-
 const EMPLOYEE = db.getRepository(DBEmployee)
 const USER = db.getRepository(DBUser)
 const DEPARTMENTS = db.getRepository(Department)
@@ -86,7 +84,7 @@ export  async function updateSingleEmployee(req : Request, res : Response, next 
 
     let idExists = await EMPLOYEE.findOneByOrFail({id})
     const dept = await DEPARTMENTS.findOneByOrFail({
-        name : req.body.department.name
+        name : req.body.department.name ?? req.body.department
     })
 
     const currentEmployee = Employee.parse({...idExists, departmentId : idExists.department.id})
@@ -124,6 +122,11 @@ export async function createEmployee(req : Request, res : Response, next : NextF
 
 export async function signUp(req: Request, res: Response, next: NextFunction) {
     const { username, password, employee } = req.body
+
+    if (employee === undefined) {
+        throw new Error('Illegal arguments')
+    }
+
     const existingUser = await USER.findOne({ where: { username } })
 
     const existingEmployee = await EMPLOYEE.findOneByOrFail({
@@ -150,9 +153,13 @@ export async function signUp(req: Request, res: Response, next: NextFunction) {
 export async function signIn(req: Request, res: Response, next: NextFunction) {
     console.log(req.body)
     const { username, password } = req.body
-    const user = await USER.findOneByOrFail({
+    const user = await USER.findOneBy({
         username
     })
+
+    if (!user) {
+        return res.status(400).json({ message: 'Invalid username or password' })
+    }
 
     const isPasswordValid = await compare(password, user.password) // Correct comparison
 
