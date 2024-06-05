@@ -34,8 +34,13 @@ export class InitDB1717492823742 implements MigrationInterface {
         ('Hetti', '7238', 3);`);
 
         await queryRunner.query(`INSERT INTO "user" (username, password, "employeeId") VALUES
-        ('test', '$2a$10$5YzfpLFC9Y47wJ5uzCdhJe5qrTJmx0vpFWAsrdwryH8lwWQovvrTm', 6),
-        ('HROnly', '$2a$10$aUWMPgzH1E8r6i6GN/25xu2PlmrJOl5qfWpOgWPjSTGGRjMqTjpla', 20);`);
+        ('test', '$2a$10$tIrV7ICuic0t4aIl446VWOQPpXlIVRKGUT0Zw9RLmSMTRrcloMCWS', 13),
+        ('E2E', '$2a$10$NpzP41TdQGC5oYzapJiiu.4ZJvIKJZ2H36sW0hdzzrS7dx6/my/Pa', 21),
+        ('HROnly', '$2a$10$aUWMPgzH1E8r6i6GN/25xu2PlmrJOl5qfWpOgWPjSTGGRjMqTjpla', 2);`);
+
+        // test : abc123
+        // E2E : cypress
+        // HROnly : abcdef123
 
     }
 
