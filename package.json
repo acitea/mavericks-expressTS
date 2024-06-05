@@ -5,7 +5,7 @@
   "main": "app.ts",
   "scripts": {
     "dev": "nodemon",
-    "test": "export NODE_ENV=test && npx typeorm-ts-node-commonjs -d ./src/dataSource.ts migration:revert && npx typeorm-ts-node-commonjs -d ./src/dataSource.ts migration:revert && npx typeorm-ts-node-commonjs -d ./src/dataSource.ts migration:revert && npx typeorm-ts-node-commonjs -d ./src/dataSource.ts migration:run && jest --watchAll --detectOpenHandles"
+    "test": "export NODE_ENV=test && npx typeorm-ts-node-commonjs -d ./src/dataSource.ts schema:drop && npx typeorm-ts-node-commonjs -d ./src/dataSource.ts migration:run && jest --watchAll --detectOpenHandles"
   },
   "author": "",
   "license": "ISC",
